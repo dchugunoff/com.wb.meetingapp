@@ -9,7 +9,7 @@ group = "example.com"
 version = "0.0.1"
 
 application {
-    mainClass.set("example.com.ApplicationKt")
+    mainClass.set("example.com.Application")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
