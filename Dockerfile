@@ -1,20 +1,34 @@
-# Use the official Gradle image to create a build artifact.
-# https://hub.docker.com/r/library/gradle
-FROM gradle:7.4.2-jdk11 as build
+# Используем официальный образ OpenJDK как базовый
+FROM openjdk:17-jdk-alpine AS builder
 
-# Copy local code to the container image.
-WORKDIR /home/gradle/project
-COPY . .
+# Устанавливаем рабочую директорию в контейнере
+WORKDIR /app
 
-# Build a release artifact.
-RUN gradle shadowJar
+# Копируем файлы Gradle
+COPY gradle /app/gradle
+COPY gradlew /app/
+COPY build.gradle.kts /app/
+COPY settings.gradle.kts /app/
 
-# Use the official openjdk image to run the application.
-# https://hub.docker.com/r/library/openjdk
-FROM openjdk:11-jre-slim
+# Загружаем зависимости
+RUN ./gradlew dependencies
 
-# Copy the jar to the production image from the builder stage.
-COPY --from=build /home/gradle/project/build/libs/com.wb.meetingapp-all.jar /app/meetingapp.jar
+# Копируем весь исходный код
+COPY src /app/src
 
-# Run the web service on container startup.
-CMD ["java", "-jar", "/app/meetingapp.jar"]
+# Сборка JAR файла
+RUN ./gradlew shadowJar
+
+# Используем другой базовый образ для выполнения
+FROM openjdk:17-jdk-alpine
+
+# Копируем собранный JAR файл из предыдущего этапа
+COPY --from=builder /app/build/libs/your-app.jar /app/app.jar
+
+# Определяем переменные окружения
+ENV DATABASE_URL=jdbc:postgresql://your-db-host:5432/your-db-name
+ENV DATABASE_USER=your-db-username
+ENV DATABASE_PASSWORD=your-db-password
+
+# Запускаем приложение
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
