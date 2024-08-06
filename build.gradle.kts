@@ -19,10 +19,15 @@ repositories {
     mavenCentral()
 }
 
+tasks.jar {
+    archiveFileName.set("app.jar")
+}
+
 dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.server.cio)
+    implementation(libs.ktor.server.netty)
     implementation(libs.ktor.serialization)
     implementation(libs.logback.classic)
     implementation(libs.bundles.exposed)

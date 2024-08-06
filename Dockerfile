@@ -26,7 +26,7 @@ RUN ./gradlew shadowJar
 FROM openjdk:17-jdk-alpine
 
 # Копируем собранный JAR файл из предыдущего этапа
-COPY --from=builder /app/build/libs/your-app.jar /app/app.jar
+COPY --from=builder /app/build/libs/com.wb.meetingapp-all.jar /app/app.jar
 
 # Определяем переменные окружения
 ENV DATABASE_URL=jdbc:postgresql://dpg-cqp5kl2j1k6c73ddk5a0-a.oregon-postgres.render.com:5432/wb_meetings_app_database
