@@ -10,6 +10,9 @@ COPY gradlew /app/
 COPY build.gradle.kts /app/
 COPY settings.gradle.kts /app/
 
+# Добавляем права на выполнение для gradlew
+RUN chmod +x gradlew
+
 # Загружаем зависимости
 RUN ./gradlew dependencies
 
