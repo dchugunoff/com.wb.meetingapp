@@ -29,9 +29,9 @@ FROM openjdk:17-jdk-alpine
 COPY --from=builder /app/build/libs/your-app.jar /app/app.jar
 
 # Определяем переменные окружения
-ENV DATABASE_URL=jdbc:postgresql://your-db-host:5432/your-db-name
-ENV DATABASE_USER=your-db-username
-ENV DATABASE_PASSWORD=your-db-password
+ENV DATABASE_URL=jdbc:postgresql://dpg-cqp5kl2j1k6c73ddk5a0-a.oregon-postgres.render.com:5432/wb_meetings_app_database
+ENV DATABASE_USER=wb_meetings_app_database_user
+ENV DATABASE_PASSWORD=c90zAYlnaaDELBJXrPbBUlN8LRhoD7HI
 
 # Запускаем приложение
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
