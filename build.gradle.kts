@@ -9,18 +9,17 @@ group = "example.com"
 version = "0.0.1"
 
 application {
-    mainClass.set("example.com.Application")
-
-    val isDevelopment: Boolean = project.ext.has("development")
-    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+    mainClass.set("example.com.ApplicationKt")
 }
 
 repositories {
     mavenCentral()
 }
 
-tasks.jar {
-    archiveFileName.set("app.jar")
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "example.com.ApplicationKt"
+    }
 }
 
 dependencies {
