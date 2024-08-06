@@ -19,7 +19,7 @@ fun main() {
         user = "wb_meetings_app_database_user"
     )
 
-    embeddedServer(CIO, port = 8081, module = Application::module)
+    embeddedServer(Netty, port = 8080, module = Application::module)
         .start(wait = true)
 }
 
