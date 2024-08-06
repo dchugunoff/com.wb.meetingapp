@@ -12,10 +12,10 @@ import org.jetbrains.exposed.sql.Database
 
 fun main() {
     Database.connect(
-        url = "jdbc:postgresql://localhost:5640/meetingsapp",
+        url = System.getenv("DATABASE_URL"),
         driver = "org.postgresql.Driver",
-        password = "qwerty123",
-        user = "postgres"
+        password = System.getenv("DATABASE_PASSWORD"),
+        user = System.getenv("DATABASE_USER")
     )
 
     embeddedServer(CIO, port = 8081, host = "0.0.0.0", module = Application::module)
