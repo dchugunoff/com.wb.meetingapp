@@ -29,7 +29,10 @@ class LoginController(private val call: ApplicationCall) {
             Tokens.upsert(newUser.id, token)
             call.respond(
                 HttpStatusCode.OK,
-                LoginResponseRemote(success = true, userModel = newUser.toResponseModel(), token = token)
+                LoginResponseRemote(
+                    success = true,
+                    data = UserLoginResponseData(userModel = newUser.toResponseModel(), token = token)
+                )
             )
         } else {
             if (userDTO.pinCode == loginReceiveRemote.code) {
@@ -37,7 +40,10 @@ class LoginController(private val call: ApplicationCall) {
                 Tokens.upsert(userDTO.id, token)
                 call.respond(
                     HttpStatusCode.OK,
-                    LoginResponseRemote(success = true, userModel = userDTO.toResponseModel(), token = token)
+                    LoginResponseRemote(
+                        success = true,
+                        data = UserLoginResponseData(userModel = userDTO.toResponseModel(), token = token)
+                    )
                 )
             } else {
                 call.respond(HttpStatusCode.BadRequest, "Неправильный пароль")

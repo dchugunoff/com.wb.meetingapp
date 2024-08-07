@@ -10,5 +10,5 @@ data class CommunitiesResponseRemote(
 
 @Serializable
 data class CommunityByIdResponseRemote(
-    val success: Boolean, val community: CommunityDTO
+    val success: Boolean, val data: CommunityDTO
 )

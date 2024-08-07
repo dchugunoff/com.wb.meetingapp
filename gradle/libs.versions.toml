@@ -4,6 +4,7 @@ kotlin-version = "2.0.0"
 logback-version = "1.4.14"
 exposed-version = "0.53.0"
 postgresql = "42.7.2"
+swagger-smiley4 = "3.2.0"
 
 [libraries]
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor-version" }
@@ -11,6 +12,9 @@ ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negoti
 ktor-server-cio = { module = "io.ktor:ktor-server-cio-jvm", version.ref = "ktor-version" }
 ktor-server-netty = { module ="io.ktor:ktor-server-netty", version.ref = "ktor-version" }
 ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor-version" }
+ktor-swagger = { module = "io.ktor:ktor-server-swagger", version.ref = "ktor-version" }
+ktor-openapi = { module = "io.ktor:ktor-server-openapi", version.ref = "ktor-version" }
+swagger-smiley4 = { module = "io.github.smiley4:ktor-swagger-ui", version.ref = "swagger-smiley4" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-version" }
 ktor-server-test-host = { module = "io.ktor:ktor-server-test-host-jvm", version.ref = "ktor-version" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin-version" }

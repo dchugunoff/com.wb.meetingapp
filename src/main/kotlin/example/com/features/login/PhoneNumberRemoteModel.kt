@@ -9,7 +9,18 @@ data class LoginReceiveRemote(
     val code: String
 )
 
+//@Serializable
+//data class LoginResponseRemote(
+//    val success: Boolean, val userModel: UserResponseModelDTO, val token: String
+//)
+
 @Serializable
 data class LoginResponseRemote(
-    val success: Boolean, val userModel: UserResponseModelDTO, val token: String
+    val success: Boolean, val data: UserLoginResponseData
+)
+
+@Serializable
+data class UserLoginResponseData(
+    val userModel: UserResponseModelDTO,
+    val token: String
 )

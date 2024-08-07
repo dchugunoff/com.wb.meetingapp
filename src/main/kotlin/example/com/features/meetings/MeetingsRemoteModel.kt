@@ -5,10 +5,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MeetingsResponseRemote(
-    val success: Boolean, val meetings: List<MeetingDTO>
+    val success: Boolean, val data: List<MeetingDTO>
 )
 
 @Serializable
 data class MeetingByIdResponseRemote(
-    val success: Boolean, val meeting: MeetingDTO
+    val success: Boolean, val data: MeetingDTO
 )

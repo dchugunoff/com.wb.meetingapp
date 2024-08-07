@@ -6,7 +6,6 @@ import example.com.features.meetings.configureMeetingsRouting
 import example.com.features.updateUserInfo.configureUpdateUserRouting
 import example.com.plugins.*
 import io.ktor.server.application.*
-import io.ktor.server.cio.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import org.jetbrains.exposed.sql.Database

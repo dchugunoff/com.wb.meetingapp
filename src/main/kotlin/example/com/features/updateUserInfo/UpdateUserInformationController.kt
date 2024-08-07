@@ -39,7 +39,7 @@ class UpdateUserInformationController(private val call: ApplicationCall) {
 
         call.respond(
             HttpStatusCode.OK,
-            UpdateUserResponseRemote(success = true, userModel = updatedUser.toResponseModel())
+            UpdateUserResponseRemote(success = true, data = updatedUser.toResponseModel())
         )
     }
 }

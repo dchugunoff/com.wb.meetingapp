@@ -12,5 +12,5 @@ data class UpdateUserReceiveRemote(
 @Serializable
 data class UpdateUserResponseRemote(
     val success: Boolean,
-    val userModel: UserResponseModelDTO
+    val data: UserResponseModelDTO
 )
