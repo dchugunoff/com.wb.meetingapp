@@ -4,6 +4,7 @@ import database.tokens.Tokens
 import database.users.UserDTO
 import database.users.Users
 import database.users.toResponseModel
+import example.com.features.ErrorResponse
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -46,7 +47,7 @@ class LoginController(private val call: ApplicationCall) {
                     )
                 )
             } else {
-                call.respond(HttpStatusCode.BadRequest, "Неправильный пароль")
+                call.respond(HttpStatusCode.BadRequest, ErrorResponse("Неправильный пароль"))
             }
         }
     }

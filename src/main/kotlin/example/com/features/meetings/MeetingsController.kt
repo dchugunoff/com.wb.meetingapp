@@ -3,6 +3,7 @@ package example.com.features.meetings
 import database.meetings.Meetings
 import database.tokens.Tokens
 import database.users.Users
+import example.com.features.ErrorResponse
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -13,19 +14,19 @@ class MeetingsController(private val call: ApplicationCall) {
         val token = call.request.headers["Authorization"]?.removePrefix("Bearer ")
 
         if (token == null) {
-            call.respond(HttpStatusCode.Unauthorized, "Отсутствует токен")
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Отсутствует токен"))
             return
         }
 
         val userId = Tokens.fetchUserIdByToken(token)
         if (userId == null) {
-            call.respond(HttpStatusCode.Unauthorized, "Неверный токен")
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Неверный токен"))
             return
         }
 
         val userDTO = Users.fetchUser(userId)
         if (userDTO == null) {
-            call.respond(HttpStatusCode.NotFound, "Пользователь не найден")
+            call.respond(HttpStatusCode.NotFound, ErrorResponse("Пользователь не найден"))
             return
         }
 
@@ -37,19 +38,19 @@ class MeetingsController(private val call: ApplicationCall) {
         val token = call.request.headers["Authorization"]?.removePrefix("Bearer ")
 
         if (token == null) {
-            call.respond(HttpStatusCode.Unauthorized, "Отсутствует токен")
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Отсутствует токен"))
             return
         }
 
         val userId = Tokens.fetchUserIdByToken(token)
         if (userId == null) {
-            call.respond(HttpStatusCode.Unauthorized, "Неверный токен")
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Неверный токен"))
             return
         }
 
         val userDTO = Users.fetchUser(userId)
         if (userDTO == null) {
-            call.respond(HttpStatusCode.NotFound, "Пользователь не найден")
+            call.respond(HttpStatusCode.NotFound, ErrorResponse("Пользователь не найден"))
             return
         }
 
@@ -61,19 +62,19 @@ class MeetingsController(private val call: ApplicationCall) {
         val token = call.request.headers["Authorization"]?.removePrefix("Bearer ")
 
         if (token == null) {
-            call.respond(HttpStatusCode.Unauthorized, "Отсутствует токен")
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Отсутствует токен"))
             return
         }
 
         val userId = Tokens.fetchUserIdByToken(token)
         if (userId == null) {
-            call.respond(HttpStatusCode.Unauthorized, "Неверный токен")
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Неверный токен"))
             return
         }
 
         val userDTO = Users.fetchUser(userId)
         if (userDTO == null) {
-            call.respond(HttpStatusCode.NotFound, "Пользователь не найден")
+            call.respond(HttpStatusCode.NotFound, ErrorResponse("Пользователь не найден"))
             return
         }
 
@@ -85,19 +86,19 @@ class MeetingsController(private val call: ApplicationCall) {
         val token = call.request.headers["Authorization"]?.removePrefix("Bearer ")
 
         if (token == null) {
-            call.respond(HttpStatusCode.Unauthorized, "Отсутствует токен")
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Отсутствует токен"))
             return
         }
 
         val userId = Tokens.fetchUserIdByToken(token)
         if (userId == null) {
-            call.respond(HttpStatusCode.Unauthorized, "Неверный токен")
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Неверный токен"))
             return
         }
 
         val userDTO = Users.fetchUser(userId)
         if (userDTO == null) {
-            call.respond(HttpStatusCode.NotFound, "Пользователь не найден")
+            call.respond(HttpStatusCode.NotFound, ErrorResponse("Пользователь не найден"))
             return
         }
 
@@ -109,25 +110,25 @@ class MeetingsController(private val call: ApplicationCall) {
         val token = call.request.headers["Authorization"]?.removePrefix("Bearer ")
 
         if (token == null) {
-            call.respond(HttpStatusCode.Unauthorized, "Отсутствует токен")
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Отсутствует токен"))
             return
         }
 
         val userId = Tokens.fetchUserIdByToken(token)
         if (userId == null) {
-            call.respond(HttpStatusCode.Unauthorized, "Неверный токен")
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Неверный токен"))
             return
         }
 
         val userDTO = Users.fetchUser(userId)
         if (userDTO == null) {
-            call.respond(HttpStatusCode.NotFound, "Пользователь не найден")
+            call.respond(HttpStatusCode.NotFound, ErrorResponse("Пользователь не найден"))
             return
         }
 
         val meeting = Meetings.getMeetingById(meetingID, userDTO.id)
         when(meeting == null) {
-            true -> call.respond(HttpStatusCode.NotFound, "Эвент не найден")
+            true -> call.respond(HttpStatusCode.NotFound, ErrorResponse("Эвент не найден"))
             false -> call.respond(HttpStatusCode.OK, MeetingByIdResponseRemote(true, meeting))
         }
     }
@@ -135,25 +136,25 @@ class MeetingsController(private val call: ApplicationCall) {
     suspend fun toggleAttendance(meetingID: String) {
         val token = call.request.headers["Authorization"]?.removePrefix("Bearer ")
         if (token == null) {
-            call.respond(HttpStatusCode.Unauthorized, "Missing token")
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Отсутствует токен"))
             return
         }
 
         val userId = Tokens.fetchUserIdByToken(token)
         if (userId == null) {
-            call.respond(HttpStatusCode.Unauthorized, "Invalid token")
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Неверный токен"))
             return
         }
 
         val userDTO = Users.fetchUser(userId)
         if (userDTO == null) {
-            call.respond(HttpStatusCode.NotFound, "User not found")
+            call.respond(HttpStatusCode.NotFound, ErrorResponse("Пользователь не найден"))
             return
         }
 
         val meeting = Meetings.getMeetingById(meetingID, userDTO.id)
         if (meeting == null) {
-            call.respond(HttpStatusCode.NotFound, "Meeting not found")
+            call.respond(HttpStatusCode.NotFound, ErrorResponse("Встреча не найдена"))
             return
         }
 
