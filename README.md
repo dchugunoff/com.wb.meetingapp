@@ -29,15 +29,17 @@ Content-Type: application/json
 ```json
 {
     "success": true,
-    "userModel": {
-        "id": "668eb792-e62b-435d-8b62-a34cb96b4aca",
-        "hasForm": false,
-        "phoneNumber": "89377118920",
-        "firstName": "",
-        "secondName": "",
-        "avatar": ""
-    },
-    "token": "5f80da72-7621-40b3-9c2c-a4d34218bb5b"
+    "data": {
+        "userModel": {
+            "id": "668eb792-e62b-435d-8b62-a34cb96b4aca",
+            "hasForm": true,
+            "phoneNumber": "89377118920",
+            "firstName": "Dmitriy",
+            "secondName": "Chugunov",
+            "avatar": ""
+        },
+        "token": "c3f1d35f-0c44-4386-a98e-664b5497b09e"
+    }
 }
 ```
 #### **Обновление информации о user**
@@ -54,7 +56,7 @@ Content-Type: application/json
 ```json
 {
     "success": true,
-    "userModel": {
+    "data": {
         "id": "668eb792-e62b-435d-8b62-a34cb96b4aca",
         "hasForm": true,
         "phoneNumber": "89377118920",
@@ -73,7 +75,7 @@ Content-Type: application/json
 ```json
 {
     "success": true,
-    "meetings": [
+    "data": [
         {
             "id": "1",
             "name": "Kotlin",
@@ -101,7 +103,7 @@ Content-Type: application/json
 ```json
 {
     "success": true,
-    "meetings": [
+    "data": [
         {
             "id": "1",
             "name": "Kotlin",
@@ -138,7 +140,7 @@ Content-Type: application/json
 ```json
 {
     "success": true,
-    "meetings": [
+    "data": [
         {
             "id": "1",
             "name": "Kotlin",
@@ -166,7 +168,7 @@ Content-Type: application/json
 ```json
 {
     "success": true,
-    "meetings": [
+    "data": [
         {
             "id": "1",
             "name": "Kotlin",
@@ -194,7 +196,7 @@ Content-Type: application/json
 ```json
 {
     "success": true,
-    "meetings": [
+    "data": [
         {
             "id": "1",
             "name": "Kotlin",
@@ -232,7 +234,7 @@ Content-Type: application/json
 ```json
 {
     "success": true,
-    "meeting": {
+    "data": {
         "id": "1",
         "name": "Kotlin devs",
         "date": "05.08.2024",
@@ -267,7 +269,7 @@ Content-Type: application/json
 ```json
 {
     "success": true,
-    "meeting": {
+    "data": {
         "id": "1",
         "name": "Kotlin devs",
         "date": "05.08.2024",
@@ -301,7 +303,7 @@ Content-Type: application/json
 ```json
 {
     "success": true,
-    "communities": [
+    "data": [
         {
             "id": "2",
             "name": "Сбербанк",
@@ -345,7 +347,7 @@ Content-Type: application/json
 ```json
 {
     "success": true,
-    "community": {
+    "data": {
         "id": "1",
         "name": "T-Bank",
         "size": "100",
