@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CommunitiesResponseRemote(
-    val success: Boolean, val communities: List<CommunityDTO>
+    val success: Boolean, val data: List<CommunityDTO>
 )
 
 @Serializable

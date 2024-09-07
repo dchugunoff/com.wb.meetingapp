@@ -5,23 +5,27 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 object Users : Table("users") {
     val id = Users.varchar("id", 100)
-    val hasForm = Users.bool("hasForm")
-    val phoneNumber = Users.varchar("phoneNumber", 20)
-    val pinCode = Users.varchar("pinCode", 4)
-    val firstName = Users.varchar("firstName", 15)
-    val secondName = Users.varchar("secondName", 15)
-    val avatar = Users.varchar("avatar", 20)
+    val phoneNumber = Users.varchar("phone_number", 20)
+    val name = Users.varchar("name", 15).nullable()
+    val avatar = Users.varchar("avatar", 100).nullable()
+    val city = Users.varchar("city", 50).nullable()
+    val aboutUser = Users.varchar("about_user", 150).nullable()
+    val tags = Users.text("tags").nullable()
+    val telegramNickname = Users.varchar("telegram_nickname", 50).nullable()
+    val habrNickname = Users.varchar("habr_nickname", 50).nullable()
 
     fun insert(userDTO: UserDTO) {
         transaction {
             Users.insert {
                 it[id] = userDTO.id
-                it[hasForm] = userDTO.hasForm
                 it[phoneNumber] = userDTO.phoneNumber
-                it[pinCode] = userDTO.pinCode
-                it[firstName] = userDTO.firstName.orEmpty()
-                it[secondName] = userDTO.secondName.orEmpty()
-                it[avatar] = userDTO.avatar.orEmpty()
+                it[name] = userDTO.name
+                it[avatar] = userDTO.avatar
+                it[city] = userDTO.city
+                it[aboutUser] = userDTO.aboutUser
+                it[tags] = userDTO.tagsInterests?.joinToString(separator = ",")
+                it[telegramNickname] = userDTO.telegramNickname
+                it[habrNickname] = userDTO.habrNickname
             }
         }
     }
@@ -31,13 +35,15 @@ object Users : Table("users") {
             Users.selectAll().where { Users.id eq userId }
                 .mapNotNull {
                     UserDTO(
-                        id = it[Users.id],
-                        hasForm = it[hasForm],
-                        phoneNumber = it[phoneNumber],
-                        pinCode = it[pinCode],
-                        firstName = it[firstName],
-                        secondName = it[secondName],
-                        avatar = it[avatar]
+                        it[Users.id],
+                        it[phoneNumber],
+                        it[name],
+                        it[avatar],
+                        it[city],
+                        it[aboutUser],
+                        it[tags]?.split(","),
+                        it[telegramNickname],
+                        it[habrNickname]
                     )
                 }.singleOrNull()
         }
@@ -49,13 +55,15 @@ object Users : Table("users") {
                 Users.selectAll().where { Users.phoneNumber eq phoneNumber }
                     .mapNotNull {
                         UserDTO(
-                            id = it[Users.id],
-                            hasForm = it[hasForm],
-                            phoneNumber = it[Users.phoneNumber],
-                            pinCode = it[pinCode],
-                            firstName = it[firstName],
-                            secondName = it[secondName],
-                            avatar = it[avatar]
+                            it[Users.id],
+                            it[Users.phoneNumber],
+                            it[name],
+                            it[avatar],
+                            it[city],
+                            it[aboutUser],
+                            it[tags]?.split(","),
+                            it[telegramNickname],
+                            it[habrNickname]
                         )
                     }.singleOrNull()
             }
@@ -67,10 +75,14 @@ object Users : Table("users") {
 
     fun update(userId: String, updatedUser: UserDTO) {
         transaction {
-            Users.update({ Users.id eq userId }) {
-                it[firstName] = updatedUser.firstName.orEmpty()
-                it[secondName] = updatedUser.secondName.orEmpty()
-                it[hasForm] = updatedUser.hasForm
+            Users.update({ Users.id eq userId }) { statement ->
+                updatedUser.name?.let { statement[name] = it }
+                updatedUser.avatar?.let { statement[avatar] = it }
+                updatedUser.city?.let { statement[city] = it }
+                updatedUser.aboutUser?.let { statement[aboutUser] = it }
+                updatedUser.tagsInterests?.let { statement[tags] = it.joinToString(separator = ",") }
+                updatedUser.telegramNickname?.let { statement[telegramNickname] = it }
+                updatedUser.habrNickname?.let { statement[habrNickname] = it }
             }
         }
     }

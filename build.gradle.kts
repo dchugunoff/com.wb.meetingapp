@@ -28,6 +28,7 @@ dependencies {
     implementation(libs.ktor.server.cio)
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.serialization)
+    implementation(libs.ktor.status.pages)
 //    implementation(libs.ktor.swagger)
 //    implementation(libs.ktor.openapi)
 //    implementation(libs.swagger.smiley4)

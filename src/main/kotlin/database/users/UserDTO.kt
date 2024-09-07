@@ -5,14 +5,16 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserDTO(
     val id: String,
-    val hasForm: Boolean,
     val phoneNumber: String,
-    val pinCode: String,
-    val firstName: String?,
-    val secondName: String?,
-    val avatar: String?
+    val name: String? = null,
+    val avatar: String? = null,
+    val city: String? = null,
+    val aboutUser: String? = null,
+    val tagsInterests: List<String>? = null,
+    val telegramNickname: String? = null,
+    val habrNickname: String? = null
 )
 
 fun UserDTO.toResponseModel() = UserResponseModelDTO(
-    id, hasForm, phoneNumber, firstName, secondName, avatar
+    id, phoneNumber, name, avatar, city, aboutUser, tagsInterests, telegramNickname, habrNickname
 )

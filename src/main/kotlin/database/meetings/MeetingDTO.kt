@@ -1,5 +1,6 @@
 package database.meetings
 
+import database.communities.CommunityDTO
 import database.users.UserResponseModelDTO
 import kotlinx.serialization.Serializable
 
@@ -10,9 +11,12 @@ data class MeetingDTO(
     val date: String,
     val location: String,
     val tagList: List<String>,
-    val meetingUrl: String?,
+    val avatarUrl: String,
     val isFinished: Boolean,
-    val isAttending: Boolean,
-    val description: String?,
-    val participants: List<UserResponseModelDTO>
+    var isAttending: Boolean,
+    val description: String,
+    val presenter: UserResponseModelDTO,
+    val presenterDescription: String,
+    val communityPresenter: CommunityDTO,
+    val remainingPlaces: Int
 )

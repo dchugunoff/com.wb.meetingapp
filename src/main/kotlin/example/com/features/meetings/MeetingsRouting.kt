@@ -13,39 +13,55 @@ fun Application.configureMeetingsRouting() {
     }
 
     routing {
-        get("/fetchMyMeetings") {
-            val meetingsController = MeetingsController(call)
-            meetingsController.fetchMyMeetings()
-        }
-    }
-
-    routing {
-        get("/fetchActiveMeetings") {
-            val meetingsController = MeetingsController(call)
-            meetingsController.fetchActiveMeetings()
-        }
-    }
-    routing {
-        get("/fetchFinishedMeetings") {
-            val meetingsController = MeetingsController(call)
-            meetingsController.fetchFinishedMeetings()
-        }
-    }
-    routing {
         get("/fetchMeetingById") {
             val meetingId =
-                call.request.queryParameters["meetingId"] ?: throw BadRequestException("Встреча не найдена")
+                call.request.queryParameters["meeting_id"] ?: throw BadRequestException("Встреча не найдена")
             val meetingsController = MeetingsController(call)
             meetingsController.fetchMeetingById(meetingId)
         }
     }
 
     routing {
-        post("/toggleAttendance") {
+        get("/fetchActiveMeetingsByCommunityId") {
             val meetingId =
-                call.request.queryParameters["meetingId"] ?: throw BadRequestException("Встреча не найдена")
+                call.request.queryParameters["community_id"] ?: throw BadRequestException("Встречи не найдены")
             val meetingsController = MeetingsController(call)
-            meetingsController.toggleAttendance(meetingId)
+            meetingsController.fetchActiveMeetingsByCommunityID(meetingId)
+        }
+    }
+
+    routing {
+        get("/fetchFinishedMeetingsByCommunityId") {
+            val meetingId =
+                call.request.queryParameters["community_id"] ?: throw BadRequestException("Встречи не найдены")
+            val meetingsController = MeetingsController(call)
+            meetingsController.fetchFinishedMeetingsByCommunityID(meetingId)
+        }
+    }
+
+    routing {
+        get("/fetchUsersByMeetingId") {
+            val meetingId =
+                call.request.queryParameters["meeting_id"] ?: throw BadRequestException("Встреча не найдена")
+            val meetingsController = MeetingsController(call)
+            meetingsController.fetchUsersByMeetingID(meetingId)
+        }
+    }
+
+    routing {
+        post("/toggleMeetingAttendance") {
+            val meetingId =
+                call.request.queryParameters["meeting_id"] ?: throw BadRequestException("Встреча не найдена")
+            val meetingsController = MeetingsController(call)
+            meetingsController.toggleMeetingAttendance(meetingId)
+        }
+    }
+
+    routing {
+        get("/fetchUserMeetingsByUserId") {
+            val userId = call.request.queryParameters["user_id"] ?: throw BadRequestException("Встречи не найдены")
+            val meetingsController = MeetingsController(call)
+            meetingsController.fetchUserMeetingsByUserDI(userId)
         }
     }
 }

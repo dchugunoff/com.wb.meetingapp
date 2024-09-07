@@ -5,8 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LoginReceiveRemote(
-    val phoneNumber: String,
-    val code: String
+    val phoneNumber: String
 )
 
 //@Serializable
