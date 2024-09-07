@@ -5,8 +5,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UpdateUserReceiveRemote(
-    val firstName: String,
-    val secondName: String
+    val name: String? = null,
+    val avatar: String? = null,
+    val city: String? = null,
+    val aboutUser: String? = null,
+    val tagsInterests: List<String>? = null,
+    val telegramNickname: String? = null,
+    val habrNickname: String? = null
 )
 
 @Serializable

@@ -5,9 +5,12 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserResponseModelDTO (
     val id: String,
-    val hasForm: Boolean,
     val phoneNumber: String,
-    val firstName: String?,
-    val secondName: String?,
-    val avatar: String?
+    val name: String?,
+    val avatar: String?,
+    val city: String?,
+    val aboutUser: String?,
+    val tagsInterests: List<String>?,
+    val telegramNickname: String?,
+    val habrNickname: String?
 )

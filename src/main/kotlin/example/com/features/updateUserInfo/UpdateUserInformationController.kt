@@ -31,9 +31,13 @@ class UpdateUserInformationController(private val call: ApplicationCall) {
         }
 
         val updatedUser = userDTO.copy(
-            firstName = updateUserReceiveRemote.firstName,
-            secondName = updateUserReceiveRemote.secondName,
-            hasForm = true
+            name = updateUserReceiveRemote.name ?: userDTO.name,
+            avatar = updateUserReceiveRemote.avatar ?: userDTO.avatar,
+            city = updateUserReceiveRemote.city ?: userDTO.city,
+            aboutUser = updateUserReceiveRemote.aboutUser ?: userDTO.aboutUser,
+            tagsInterests = updateUserReceiveRemote.tagsInterests ?: userDTO.tagsInterests,
+            telegramNickname = updateUserReceiveRemote.telegramNickname ?: userDTO.telegramNickname,
+            habrNickname = updateUserReceiveRemote.habrNickname ?: userDTO.habrNickname
         )
 
         Users.update(userId, updatedUser)
@@ -41,6 +45,32 @@ class UpdateUserInformationController(private val call: ApplicationCall) {
         call.respond(
             HttpStatusCode.OK,
             UpdateUserResponseRemote(success = true, data = updatedUser.toResponseModel())
+        )
+    }
+
+    suspend fun getMe() {
+        val token = call.request.headers["Authorization"]?.removePrefix("Bearer ")
+
+        if (token == null) {
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Отсутствует токен"))
+            return
+        }
+
+        val userId = Tokens.fetchUserIdByToken(token)
+        if (userId == null) {
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Неверный токен"))
+            return
+        }
+
+        val userDTO = Users.fetchUser(userId)
+        if (userDTO == null) {
+            call.respond(HttpStatusCode.NotFound, ErrorResponse("Пользователь не найден"))
+            return
+        }
+
+        call.respond(
+            HttpStatusCode.OK,
+            userDTO
         )
     }
 }
