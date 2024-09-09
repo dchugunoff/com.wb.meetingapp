@@ -4,6 +4,7 @@ import example.com.features.communities.configureCommunitiesRouting
 import example.com.features.login.configureLoginRouting
 import example.com.features.meetings.configureMeetingsRouting
 import example.com.features.updateUserInfo.configureUpdateUserRouting
+import example.com.features.users.configureUsersRouting
 import example.com.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -45,6 +46,7 @@ fun Application.module() {
     configureRouting()
     configureLoginRouting()
     configureUpdateUserRouting()
+    configureUsersRouting()
     configureMeetingsRouting()
     configureCommunitiesRouting()
 }
