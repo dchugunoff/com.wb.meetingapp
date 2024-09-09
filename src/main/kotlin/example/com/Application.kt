@@ -4,15 +4,10 @@ import example.com.features.communities.configureCommunitiesRouting
 import example.com.features.login.configureLoginRouting
 import example.com.features.meetings.configureMeetingsRouting
 import example.com.features.updateUserInfo.configureUpdateUserRouting
-import example.com.features.users.configureUsersRouting
 import example.com.plugins.*
-import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
-import io.ktor.server.cio.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import io.ktor.server.plugins.contentnegotiation.*
-import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.Database
 
 fun main() {
@@ -34,7 +29,7 @@ fun main() {
 //
 //    embeddedServer(Netty, port = 8080, module = Application::module)
 //        .start(wait = true)
-        Database.connect(
+    Database.connect(
         url = "jdbc:postgresql://dpg-crfg9i3qf0us738km91g-a.virginia-postgres.render.com:5432/wildberriesbackend",
         driver = "org.postgresql.Driver",
         password = "ihozwf5n6PcoadUsvQvFVfoJTS6jf7lk",
@@ -52,5 +47,4 @@ fun Application.module() {
     configureUpdateUserRouting()
     configureMeetingsRouting()
     configureCommunitiesRouting()
-    configureUsersRouting()
 }
